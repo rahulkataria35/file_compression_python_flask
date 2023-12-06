@@ -4,86 +4,9 @@ import traceback
 from flask import Blueprint, jsonify,request
 import datetime
 import shutil
-# from utils.compressor import compress_image, convert_size
-import math
-import traceback, os, shutil
-from random import randint
-import json
-import PyPDF2
-from PIL import Image
-from pdf2image import convert_from_path
-import base64
-import requests
+from utils.compressor import compress_image, convert_size
+from common.common import get_random_dir_file_name, download_file, image_to_base64
 
-
-def image_to_base64(f):
-    with open(f, 'rb') as image:
-        encoded_string = base64.b64encode(image.read())
-    return encoded_string
-
-
-
-def download_file(url, file_path):
-    try:
-        # Send a HTTP GET request to the URL
-        response = requests.get(url)
-        
-        # Check if the response was successful (status code 200)
-        if response.status_code == 200:
-            # Open the file in binary mode and write the response content
-            with open(file_path, 'wb') as file:
-                file.write(response.content)
-            print("File downloaded successfully.")
-            
-        else:
-            print(f"Download failed. Status Code: {response.status_code}")
-
-    except requests.exceptions.RequestException as e:
-        print(f"An error occurred during the request: {e}")
-        
-    except IOError as e:
-        print(f"An error occurred while saving the file: {e}")
-        
-    except Exception as e:
-        print(f"An unknown error occurred: {e}")
-
-
-
-def convert_size(size_bytes):
-   if size_bytes == 0:
-       return "0B"
-   size_name = ("B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB")
-   i = int(math.floor(math.log(size_bytes, 1000)))
-   p = math.pow(1000, i)
-   s = round(size_bytes / p, 2)
-   return "%s %s" % (s, size_name[i])
-
-def compress_image(input_path, output_path, quality):
-    try:
-        
-        # Open the image
-        image = Image.open(input_path)
-        # Save the image with reduced quality
-        image.save(output_path, optimize=True, quality=int(quality))
-        # Get the new file size
-        compressed_size = os.path.getsize(output_path) / (1000 * 1000)  # in MB
-        print("\nFile compressed successfully. New size: {:.2f} MB".format(compressed_size))
-
-        # get the compressed size in bytes
-        compressed_size_in_bytes = os.path.getsize(output_path)
-        
-        return compressed_size_in_bytes, output_path
-
-    except Exception as e:
-        print("Error compressing the image file:", str(e))
-
-def get_random_dir_file_name(prefix, suffix):
-    """
-    generates random file/ directory name
-    """
-    time_stamp = datetime.datetime.now().strftime("%Y_%m_%d_%H_%M_%S_%f")
-    random_no = ''.join(random.sample('0123456789', 4))
-    return prefix + time_stamp + random_no + suffix
 
 img_compressor_app = Blueprint("img_compressor_app", __name__, url_prefix="/compression_api")
 
@@ -151,7 +74,6 @@ def img():
 
             final_path = temp_folder_name + "output.jpg"
 
-            ###_________________start__________________
             image_quality = 100
             compressed_size_in_bytes , output_path = compress_image(final_file_path, final_path, image_quality)
             print("\noriginal size==", convert_size(compressed_size_in_bytes))
