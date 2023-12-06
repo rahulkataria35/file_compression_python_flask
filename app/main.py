@@ -3,7 +3,7 @@ import sys
 import os
 import requests
 from flask import Flask, request, jsonify
-from image_compressor import img_compressor_app
+from app.api.image_compressor import img_compressor_app
 
 
 
