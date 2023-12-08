@@ -10,7 +10,7 @@ from common.common import get_random_dir_file_name, download_file, image_to_base
 
 img_compressor_app = Blueprint("img_compressor_app", __name__, url_prefix="/compression_api")
 
-@img_compressor_app.route("/img", methods=['POST', 'GET'])
+@img_compressor_app.route("/img", methods=['POST'])
 def img():
     try:
         payload = request.get_json()
