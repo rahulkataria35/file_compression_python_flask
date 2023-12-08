@@ -4,12 +4,14 @@ import os
 import requests
 from flask import Flask, request, jsonify
 from app.api.image_compressor import img_compressor_app
+from app.api.pdf_compressor import pdf_compressor_app
 
 
 
 app = Flask(__name__)
 
 app.register_blueprint(img_compressor_app)
+app.register_blueprint(pdf_compressor_app)
 
 
 env_not_found = "env not found"

@@ -106,7 +106,7 @@ def img():
 
             
             try:
-                shutil.rmtree(temp_folder_name)
+                shutil.rmtree("../temp/")
             except:
                 pass
             return jsonify({"RESPONSE_TYPE": "I", "RESPONSE_MESSAGE": "SUCCESS", "DATA": response})
