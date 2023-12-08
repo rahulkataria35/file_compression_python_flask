@@ -20,7 +20,7 @@ def img():
         return jsonify({"response":"key missing"})
     
     try:  
-        temp_folder_name = get_random_dir_file_name("../temp/", '_image_compressor/')
+        temp_folder_name = get_random_dir_file_name("./temp/", '_image_compressor/')
 
         isExist = os.path.exists(temp_folder_name)
         if not isExist:
@@ -106,7 +106,7 @@ def img():
 
             
             try:
-                shutil.rmtree("../temp/")
+                shutil.rmtree("./temp/")
             except:
                 pass
             return jsonify({"RESPONSE_TYPE": "I", "RESPONSE_MESSAGE": "SUCCESS", "DATA": response})

@@ -5,6 +5,7 @@ import traceback, os, shutil
 from random import randint
 import json
 import PyPDF2
+from PyPDF2 import PdfReader
 from PIL import Image
 from pdf2image import convert_from_path
 

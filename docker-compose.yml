@@ -1,0 +1,28 @@
+---
+version: "3.3"
+
+services:
+  doc_compression:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - code_update_time=${NOW}
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "curl",
+          "-f",
+          "http://localhost/compression_api/status"
+        ]
+      interval: "60s"
+      timeout: "150s"
+      retries: 3
+    container_name: "doc_compression"
+    image: doc_compression:latest
+
+    ports:
+      - "9044:80"
+
+    working_dir: /app

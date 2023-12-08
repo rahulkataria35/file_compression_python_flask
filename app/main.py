@@ -3,9 +3,8 @@ import sys
 import os
 import requests
 from flask import Flask, request, jsonify
-from app.api.image_compressor import img_compressor_app
-from app.api.pdf_compressor import pdf_compressor_app
-
+from api.image_compressor import img_compressor_app
+from api.pdf_compressor import pdf_compressor_app
 
 
 app = Flask(__name__)
@@ -19,7 +18,7 @@ code_update_time = os.getenv("code_update_time", env_not_found)
 latest_commit_author = os.getenv("latest_commit_author", env_not_found)
 latest_commit_time = os.getenv("latest_commit_time", env_not_found)
 
-@app.route("/python_api/status", methods=['POST', 'GET'])
+@app.route("/compression_api/status", methods=['POST', 'GET'])
 def hello():
     """
     :return: status api added

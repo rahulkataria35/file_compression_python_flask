@@ -26,7 +26,7 @@ def pdf():
     
     # download the file
     try:  
-        temp_folder_name = get_random_dir_file_name("../temp/", '_pdf_compressor/')
+        temp_folder_name = get_random_dir_file_name("./temp/", '_input_pdf_file/')
 
         isExist = os.path.exists(temp_folder_name)
         if not isExist:
@@ -67,7 +67,7 @@ def pdf():
 
     if original_size <= target_size_bytes:
         try:
-            shutil.rmtree("../temp/")
+            shutil.rmtree("./temp/")
         except:
             pass
         
@@ -93,13 +93,13 @@ def pdf():
 
     
     # create pdf to image directory
-    pdf_to_images_folder = get_random_dir_file_name("../temp/", '_pdf_to_images/')
+    pdf_to_images_folder = get_random_dir_file_name("./temp/", '_pdf_to_images/')
     isExist = os.path.exists(pdf_to_images_folder)
     if not isExist:
         os.makedirs(pdf_to_images_folder)
     
     # create a directory where we'll merge these images and then create a pdf 
-    merged_pdf_folder = get_random_dir_file_name("../temp/", '_final_pdf/')
+    merged_pdf_folder = get_random_dir_file_name("./temp/", '_final_pdf/')
     isExist = os.path.exists(merged_pdf_folder)
     if not isExist:
         os.makedirs(merged_pdf_folder)
@@ -119,7 +119,7 @@ def pdf():
     # checking, this is already compreesed or not
     if pdf_size >= original_size:
             try:
-                shutil.rmtree("../temp/")
+                shutil.rmtree("./temp/")
             except:
                 pass
 
@@ -158,7 +158,7 @@ def pdf():
 
     
     try:
-        shutil.rmtree("../temp/")
+        shutil.rmtree("./temp/")
         
     except:
         pass    
